@@ -1,0 +1,174 @@
+/* Configurações Globais */
+:root {
+    --azul-senac: #004a8d;
+    --laranja-senac: #ffab00;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f4f9;
+    padding: 20px;
+}
+
+
+/* Estilização do Cabeçalho */
+.cabecalho {
+    display: flex;
+    flex-direction: column; /* Organiza os títulos um abaixo do outro */
+    align-items: center;    /* Centraliza horizontalmente */
+    justify-content: center;
+    padding: 40px 20px;
+    margin-bottom: 30px;
+    background-color: white; /* Fundo limpo para destacar o card principal */
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-top: 6px solid var(--azul-senac); /* Barra de destaque no topo */
+}
+
+.cabecalho h1 {
+    font-size: 2rem;
+    color: var(--azul-senac);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.cabecalho h2 {
+    font-size: 1.3rem;
+    color: #555;
+    font-weight: 500;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+/* O parágrafo de observação/turma se você tiver um no header */
+.cabecalho p {
+    font-size: 1rem;
+    color: #888;
+    background: #f0f2f5;
+    padding: 5px 15px;
+    border-radius: 20px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+/* CONTAINER PRINCIPAL */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    gap: 25px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* 1. CARD PRINCIPAL (GRADE) */
+.card-principal {
+    flex: 1 1 100%;
+    background: var(--azul-senac);
+    color: white;
+    padding: 40px; /* Aumentado para dar mais "ar" ao design */
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 74, 141, 0.15);
+}
+
+/* Estilo para a Observação (o seu <p>) */
+.card-principal p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9); /* Branco levemente transparente para suavizar */
+    margin-bottom: 25px; /* Espaço antes de começar a lista */
+    font-style:normal;
+    max-width: 100%; /* Evita que o texto encoste nas bordas em telas médias */
+}
+.card-principal ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Gap simplificado */
+    padding: 20px 0;
+    list-style-position: inside; /* Garante que o número apareça se não usar flex no li */
+}
+
+.card-principal li {
+    /* Explicação do flex: 
+       grow: 1 (preenche o espaço), 
+       shrink: 0 (não esmaga o texto), 
+       basis: calc(33% - 20px) (tenta manter 3 colunas) */
+    flex: 1 0 calc(33.333% - 20px); 
+    
+    min-width: 280px; /* Impede que os itens fiquem muito estreitos em telas médias */
+    font-size: 1.1rem;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.1); /* Efeito de vidro sutil */
+    border-radius: 8px;
+    border-bottom: none; /* Removido a borda simples por um visual de 'card' */
+    transition: background 0.3s ease;
+}
+
+.card-principal li:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Ajuste para telas menores (Tablets) */
+@media (max-width: 992px) {
+    .card-principal li {
+        flex: 1 0 calc(50% - 20px); /* 2 colunas */
+    }
+}
+
+/* Ajuste para Celulares */
+@media (max-width: 600px) {
+    .card-principal li {
+        flex: 1 0 100%; /* 1 coluna */
+    }
+}
+
+/* 2. CARDS DAS DISCIPLINAS (RESPONSIVOS) */
+.card:not(.card-principal) {
+    flex: 1 1 300px;      /* Base de 300px, cresce e diminui conforme tela */
+    min-height: 150px;
+    background: white;
+    border-radius: 10px;
+    display: flex;        /* Flex interno */
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Utilização Eficiente das Divs Internas */
+.card > div[class$="-section"] {
+    flex: 1;              /* Preenche todo o card */
+    display: flex;        /* Torna a div interna um container flex */
+    align-items: center;  /* Centraliza o título verticalmente */
+    padding: 20px;
+    border-left: 10px solid var(--azul-senac); /* Barra lateral formal */
+    transition: 0.3s;
+}
+
+/* Cores específicas para cada seção utilizando suas classes */
+.header-section  { border-left-color: #3498db !important; background: #e3f2fd; }
+.content-section { border-left-color: #e67e22 !important; background: #fff3e0; }
+.imagem-section  { border-left-color: #2ecc71 !important; background: #e8f5e9; }
+.hobbies-section { border-left-color: #9b59b6 !important; background: #f3e5f5; }
+.tasks-section   { border-left-color: #e74c3c !important; background: #ffebee; }
+.sgbd-section    { border-left-color: #1abc9c !important; background: #e0f2f1; }
+.sites-section   { border-left-color: #34495e !important; background: #eceff1; }
+
+.card h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* Hover para feedback visual */
+.card:hover div[class$="-section"] {
+    padding-left: 35px; /* Efeito de expansão ao passar o mouse */
+}
+
+/* Responsividade do texto */
+@media (max-width: 768px) {
+    .cabecalho h1 { font-size: 1.5rem; }
+    .cabecalho h2 { font-size: 1.1rem; }
+}

@@ -51,7 +51,7 @@ body {
 /* * CORES DIFERENTES PARA AS DIVS PRINCIPAIS (Card)
  * Bom contraste entre fundo e texto
 */
-.card-primario {
+.header-section {
     background-color: #e6f7ff; /* Azul claro */
     border-left: 5px solid #007bff;
 }
