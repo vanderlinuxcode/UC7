@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Aula 2 - Simulação de Login</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-box {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .mensagem {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .sucesso {
+      color: green;
+    }
+
+    .erro {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <h2>Login do Sistema</h2>
+
+    <form id="formLogin">
+      <input type="text" id="usuario" placeholder="Usuário">
+      <input type="password" id="senha" placeholder="Senha">
+      <button type="submit">Entrar</button>
+    </form>
+
+    <div class="mensagem" id="mensagem"></div>
+  </div>
+
+  <script>
+    // Dados fixos para simulação
+    const usuarioCorreto = "admin";
+    const senhaCorreta = "12345";
+
+    // Capturando formulário
+    const form = document.getElementById("formLogin");
+
+    form.addEventListener("submit", function(event) {
+
+      event.preventDefault(); // Evita recarregar a página
+
+      let usuarioDigitado = document.getElementById("usuario").value;
+      let senhaDigitada = document.getElementById("senha").value;
+
+      let mensagem = document.getElementById("mensagem");
+
+      console.log("Usuário digitado:", usuarioDigitado);
+      console.log("Senha digitada:", senhaDigitada);
+
+      if (usuarioDigitado === usuarioCorreto && senhaDigitada === senhaCorreta) {
+        mensagem.textContent = "Acesso permitido!";
+        mensagem.className = "mensagem sucesso";
+        console.log("Login realizado com sucesso.");
+      } else {
+        mensagem.textContent = "Acesso negado!";
+        mensagem.className = "mensagem erro";
+        console.log("Falha no login.");
+      }
+
+    });
+  </script>
+
+</body>
+</html>
