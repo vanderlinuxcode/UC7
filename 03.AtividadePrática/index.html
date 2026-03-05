@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabor na Web — menu de receitas</title>
+    <style>
+        /* 
+         * Módulo 1 + Módulo 2 integrados 
+         * --------------------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f2eee9;  /* fundo principal suave, levemente quente */
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ----- CABEÇALHO (escuro, contraste forte) ----- */
+        .cabecalho {
+            background-color: #2d3e4f;       /* tom azul-petróleo escuro, elegante */
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cabecalho h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 0.4rem;
+            text-shadow: 0 2px 3px rgba(0,0,0,0.2);
+        }
+
+        .cabecalho p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        /* ----- ÁREA CENTRAL: CONTAINER DE CARDS ----- */
+        .card-container {
+            max-width: 1300px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;                    /* espaçamento uniforme entre cartões */
+        }
+
+        /* ----- CARD DE RECEITA (bloco interno) ----- */
+        .card {
+            flex: 0 1 300px;               /* largura fixa, mas flexível */
+            background-color: #ffffff;      /* fallback – depois cada um terá sua cor */
+            border-radius: 28px;            /* borda generosa, moderna */
+            padding: 1.8rem 1.5rem 2rem;
+            box-shadow: 0 15px 30px -8px rgba(0, 0, 0, 0.15);
+            transition: transform 0.25s ease, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(2px);     /* toque sutil de profundidade */
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        /* CORES DE FUNDO ESPECÍFICAS PARA CADA CARD (3 tons suaves) */
+        .card:nth-child(1) {
+            background-color: #fcf3e0;       /* bege suave (bolo / massa) */
+        }
+        .card:nth-child(2) {
+            background-color: #e2f0f0;       /* azul bem clarinho (peixe / água) */
+        }
+        .card:nth-child(3) {
+            background-color: #ffe7e9;       /* rosa pastel (torta / frango) */
+        }
+
+        .card h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2c3e42;
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #3e3e3e;
+            margin-bottom: 1.2rem;
+            flex-grow: 1;               /* empurra o conteúdo seguinte */
+            padding: 0 0.25rem;
+        }
+
+        /* ----- ÁREA DE RÓTULOS (tags) ----- */
+        .tags-receita {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem 0.75rem;
+            margin: 1rem 0 1.4rem;
+        }
+
+        /* estilo base dos rótulos – cantos arredondados, cores vivas */
+        .tag {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;          /* completamente arredondado (pill) */
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* cores distintas e vibrantes para cada tipo de etiqueta */
+        .tag-tempo {
+            background-color: #c44536;    /* vermelho-tijolo vibrante */
+        }
+        .tag-dificuldade {
+            background-color: #2a9d8f;    /* verde-azulado (turquesa) forte */
+        }
+
+        /* ----- BOTÃO CTA (cor quente e chamativa) ----- */
+        .btn-ver-receita {
+            display: inline-block;
+            background-color: #f45b2b;     /* laranja vibrante */
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 60px;            /* botão pill, mais amigável */
+            letter-spacing: 0.8px;
+            transition: background-color 0.2s, transform 0.1s;
+            border: none;
+            box-shadow: 0 8px 14px -6px rgba(244, 91, 43, 0.4);
+            margin-top: 0.5rem;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-ver-receita:hover {
+            background-color: #d94317;      /* laranja queimado */
+            transform: scale(1.04);
+            box-shadow: 0 12px 18px -8px rgba(217, 67, 23, 0.5);
+        }
+
+        /* ----- RODAPÉ ----- */
+        .rodape {
+            background-color: #1e2b32;       /* tom escuro, quase preto azulado */
+            color: #cdd9de;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            margin-top: 2rem;
+            font-size: 1rem;
+            border-top: 3px solid #f45b2b;   /* detalhe vibrante */
+        }
+
+        .rodape p {
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* ----- RESPONSIVIDADE (celular) ----- */
+        @media (max-width: 700px) {
+            .cabecalho h1 {
+                font-size: 2rem;
+            }
+            .cabecalho p {
+                font-size: 1rem;
+            }
+            .card-container {
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+            .card {
+                flex: 0 1 100%;            /* cartões ocupam quase toda largura */
+                max-width: 420px;
+                padding: 1.8rem 1.2rem;
+            }
+            .btn-ver-receita {
+                width: 90%;                /* ainda mais fácil de tocar */
+                text-align: center;
+            }
+            .tag {
+                font-size: 0.75rem;
+                padding: 0.35rem 0.9rem;
+            }
+        }
+
+        /* telas muito pequenas (menos de 380px) */
+        @media (max-width: 400px) {
+            .card h2 {
+                font-size: 1.6rem;
+            }
+            .tags-receita {
+                flex-direction: column;
+                align-items: center;
+            }
+            .tag {
+                width: fit-content;
+            }
+        }
+
+        /* Ajuste extra: espaçamento interno, nada grudado */
+        .card > *:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOPO (CABEÇALHO) -->
+    <header class="cabecalho">
+        <h1>Sabor na Web</h1>
+        <p>Descubra receitas incríveis — de bolos clássicos a pratos sofisticados</p>
+    </header>
+
+    <!-- CONTAINER DE RECEITAS (área central) -->
+    <main class="card-container">
+
+        <!-- CARD 1 - Bolo (fundo bege suave) -->
+        <article class="card">
+            <h2>Bolo de Chocolate</h2>
+            <p>Massa úmida e sabor intenso. Perfeita para o café da manhã ou para celebrar momentos especiais.</p>
+            <div class="tags-receita">
+                <span class="tag tag-tempo">⏱️ 45 min</span>
+                <span class="tag tag-dificuldade">⭐ Fácil</span>
+            </div>
+            <a href="#" class="btn-ver-receita">Ver receita completa</a>
+        </article>
+
+        <!-- CARD 2 - Salmão (fundo azul clarinho) -->
+        <article class="card">
+            <h2>Salmão grelhado</h2>
+            <p>Com marinada cítrica e ervas, fica suculento por dentro e crocante por fora. Prático e saudável, sabor inesquecível.</p>
+            <div class="tags-receita">
+                <span class="tag tag-tempo">⏱️ 25 min</span>
+                <span class="tag tag-dificuldade">⭐⭐ Médio</span>
+            </div>
+            <a href="#" class="btn-ver-receita">Ver receita completa</a>
+        </article>
+
+        <!-- CARD 3 - Torta de frango (fundo rosa claro) -->
+        <article class="card">
+            <h2>Torta de frango</h2>
+            <p>Recheio cremoso com catupiry, massa simples que derrete na boca. Uma verdadeira comfort food.</p>
+            <div class="tags-receita">
+                <span class="tag tag-tempo">⏱️ 1h 20min</span>
+                <span class="tag tag-dificuldade">~⭐ Médio</span>
+            </div>
+            <a href="#" class="btn-ver-receita">Ver receita completa</a>
+        </article>
+
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer class="rodape">
+        <p>© 2026 Sabor na Web • Todos os direitos protegidos, ótima experiência visual<br> 
+        (Explorando o CSS Flexbox e cores para um menu de receitas.)</p>
+    </footer>
+
+</body>
+</html>
